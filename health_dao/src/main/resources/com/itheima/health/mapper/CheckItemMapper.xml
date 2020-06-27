@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace = "com.itheima.health.mapper.CheckItemMapper">
+    <!--添加-->
+    <insert id="add" parameterType="CheckItem" useGeneratedKeys="true" keyColumn="id">
+        insert into t_checkitem(code,name,sex,age,price,type,remark,attention)
+                      values
+        (#{code},#{name},#{sex},#{age},#{price},#{type},#{remark},#{attention})
+    </insert>
+
+    <!--修改-->
+    <update id="update" parameterType="CheckItem">
+        update t_checkitem
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="attention != null">
+                attention = #{attention},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除-->
+    <delete id="delete" parameterType="int">
+        delete from t_checkItem where id = #{checkItemId}
+    </delete>
+
+
+
+    <!--查询所有-->
+    <select id="findAll" resultType="CheckItem">
+        select * from t_checkItem
+    </select>
+
+    <!--查询单个-->
+    <select id="findOne" resultType="com.itheima.health.pojo.CheckItem">
+        select * from t_checkitem where id = #{id}
+    </select>
+
+    <!--条件查询-->
+    <select id="findByCondition" resultType="com.itheima.health.pojo.CheckItem">
+        select * from t_checkItem
+        <where>
+            <if test="name != null and name.length >0">
+                and name = #{name},
+            </if>
+            <if test="sex != null and sex.length >0">
+                and sex = #{sex},
+            </if>
+            <if test="code != null and code.length >0">
+                and code = #{code},
+            </if>
+            <if test="age != null and age.length >0">
+               and  age = #{age},
+            </if>
+            <if test="price != null and price.length >0">
+                and price = #{price},
+            </if>
+            <if test="type != null and type.length >0">
+               and type = #{type},
+            </if>
+            <if test="attention != null and attention.length >0">
+               and attention = #{attention},
+            </if>
+            <if test="remark != null and remark.length >0">
+               and remark = #{remark},
+            </if>
+        </where>
+    </select>
+
+</mapper>
